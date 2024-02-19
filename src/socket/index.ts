@@ -1,8 +1,9 @@
 import {Server} from "socket.io";
 import SocketService from './service'
+import {RoomInterface} from "../interfaces/RoomInterface";
 const socketService = new SocketService()
 
-export const SocketInstance = (server) => {
+export const SocketInstance = (server: any) => {
     const io = new Server(server, {
         cors: {
             origin: '*',
@@ -13,8 +14,8 @@ export const SocketInstance = (server) => {
     io.on('connection', socket => {
         console.log('user connected')
 
-        socket.on('join-room', async ({room_id}: {room_id: string}) => {
-            await socketService.joinRoom(socket, room_id)
+        socket.on('join-room', async ({room_id, peer_id}: RoomInterface) => {
+            await socketService.joinRoom(socket, {room_id, peer_id})
         })
 
         socket.on('create-room', async () => {
