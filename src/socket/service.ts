@@ -85,6 +85,7 @@ export default class SocketService {
         socket.to(room_id).emit("user-joined", { peer_id, 
             // userName 
         });
+        socket.to(room_id).emit("user-joined", {peer_id})
         if (room){
             socket.emit("get-users", {
                 room_id,
